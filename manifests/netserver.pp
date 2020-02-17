@@ -24,7 +24,7 @@ class rsyslog::netserver {
 		source => 'puppet:///modules/rsyslog/syslog.netmsg',
 		mode => '0644',
 	} ->
-	file {'/var/log/net'
+	file {'/var/log/net':
 		ensure => directory,
 		mode => '0777',
 	}
