@@ -1,19 +1,16 @@
 class rsyslog::netserver {
+	include "rsyslog"
 	include "logrotate"
-	ini_setting {'rsyslog_udpserver_module':
+	file_line { "rsyslog_udpserver_module":
+		require => File['/etc/rsyslog.d'],
 		path => '/etc/rsyslog.conf',
-		ensure => present,
-		section => '',
-		setting => '$ModLoad',
-		value => 'imudp',
+		line => "\$ModLoad imudp",
 		notify => Service['rsyslog'],
 	} ->
-	ini_setting {'rsyslog_udpserver_port':
+	file_line { "rsyslog_udpserver_port":
+		require => File['/etc/rsyslog.d'],
 		path => '/etc/rsyslog.conf',
-		ensure => present,
-		section => '',
-		setting => '$UDPServerRun',
-		value => '514',
+		line => "\$UDPServerRun 514",
 		notify => Service['rsyslog'],
 	} ->
 	file {'/etc/rsyslog.d/netmsg.conf':
@@ -26,5 +23,9 @@ class rsyslog::netserver {
 		require => File['/etc/logrotate.d'],
 		source => 'puppet:///modules/rsyslog/syslog.netmsg',
 		mode => '0644',
+	} ->
+	file {'/var/log/net'
+		ensure => directory,
+		mode => '0777',
 	}
 }
