@@ -12,21 +12,21 @@ class rsyslog::netserver {
 					$udp_module_port = "\$UDPServerRun 514"
 				}
 				default: {
-					$udp_module_cmd = "module(load="imudp")"
-					$udp_module_port = "input(type="imudp" port="514")"
+					$udp_module_cmd = 'module(load="imudp")'
+					$udp_module_port = 'input(type="imudp" port="514")'
 				}
 			}		
 		}
 		'Ubuntu','Debian': {
 			#Старые дебы и убунты я не юзаю, только если чтото переношу на новые, 
 			#потому сразу вколачиваем код для нового синтаксиса
-			$udp_module_cmd = "module(load="imudp")"
-			$udp_module_port = "input(type="imudp" port="514")"
+			$udp_module_cmd = 'module(load="imudp")'
+			$udp_module_port = 'input(type="imudp" port="514")'
 		}
 
 		default: {
-			$udp_module_cmd = "module(load="imudp")"
-			$udp_module_port = "input(type="imudp" port="514")"
+			$udp_module_cmd = 'module(load="imudp")'
+			$udp_module_port = 'input(type="imudp" port="514")'
 		}
 	}
 	file_line { "rsyslog_udpserver_module":
