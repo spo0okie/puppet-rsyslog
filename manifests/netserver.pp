@@ -54,6 +54,6 @@ class rsyslog::netserver {
 	} ->
 	file {'/var/log/net':
 		ensure => directory,
-		mode => '0777',
+		mode => '0770', #если сделать 777 logroatate начнет ругаться что неправильные права
 	}
 }
